@@ -1,6 +1,6 @@
 from hikyuu import SG_Single
 
-name = "AMA"
+name = "SG_AMA"
 author = "fasiondog"
 doc = """AMA信号指示器
 使用《精明交易者》 [BOOK1]_ 中给出的曲线拐点算法判断曲线趋势，公式见下::
