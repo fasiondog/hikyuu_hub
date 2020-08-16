@@ -1,8 +1,13 @@
 from hikyuu import SG_Single
 
+# 部件名称
 name = "SG_AMA"
+
+# 部件作者
 author = "fasiondog"
-doc = """AMA信号指示器
+
+# 简要描述
+brief = """AMA信号指示器
 使用《精明交易者》 [BOOK1]_ 中给出的曲线拐点算法判断曲线趋势，公式见下::
 
     filter = percentage * STDEV((AMA-AMA[1], N)
@@ -12,6 +17,10 @@ doc = """AMA信号指示器
     or Buy When AMA - AMA[3] > filter 
 """
 
+# 详细信息
+details = ""
+
+# 参数要求及默认值
 params = (('filter_n', 'int', 10), ('filter_p', 'float', 0.1))
 
 sg = SG_Single(AMA())
