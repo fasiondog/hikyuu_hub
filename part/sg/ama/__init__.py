@@ -1,4 +1,4 @@
-from hikyuu import SG_Single
+from hikyuu import SG_Single, AMA
 
 # 部件名称
 name = "SG_AMA"
@@ -24,3 +24,6 @@ details = ""
 params = (('filter_n', 'int', 10, '过滤窗口周期'), ('filter_p', 'float', 0.1, '转折判断阈值'))
 
 sg = SG_Single(AMA())
+
+if __name__ == '__main__':
+    print(sg)
