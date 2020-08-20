@@ -1,8 +1,5 @@
 from hikyuu import SG_Single, AMA
 
-# 部件名称
-name = "SG_AMA"
-
 # 部件作者
 author = "fasiondog"
 
