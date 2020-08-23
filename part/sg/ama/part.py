@@ -15,7 +15,7 @@ AMA信号指示器
     or Buy When AMA - AMA[3] > filter 
 """
 
-sg = SG_Single(AMA())
+part = SG_Single(AMA())
 
 if __name__ == '__main__':
     print(sg)
