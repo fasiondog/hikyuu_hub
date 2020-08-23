@@ -3,6 +3,9 @@ from hikyuu import SP_FixedValue
 # 部件作者
 author = "fasiondog"
 
+# 版本
+version = '20200824'
+
 # 帮助信息
 doc = """
 固定价格移滑价差算法

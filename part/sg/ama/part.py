@@ -3,6 +3,9 @@ from hikyuu import SG_Single, AMA
 # 部件作者
 author = "fasiondog"
 
+# 版本
+version = '20200824'
+
 # 帮助信息
 doc = """
 AMA信号指示器
