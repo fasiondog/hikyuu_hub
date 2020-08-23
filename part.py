@@ -10,7 +10,7 @@ doc = """
 """
 
 # 部件策略原型
-part = 
+#part = 
 
 if __name__ == '__main__':
     print(part)
