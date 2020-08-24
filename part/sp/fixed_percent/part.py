@@ -13,11 +13,13 @@ doc = """
 买入实际价格 = 计划买入价格 * (1 + p)，卖出实际价格 = 计划卖出价格 * (1 - p)
 
 参数
-- (float) percent = 0.001 : 偏移的固定比例
+- (float) p = 0.001 : 偏移的固定比例
 """
 
-def part(percent=0.001)
-    return SP_FixedPercent(percent)
+
+def part(p=0.001):
+    return SP_FixedPercent(p)
+
 
 if __name__ == '__main__':
     print(sg)
