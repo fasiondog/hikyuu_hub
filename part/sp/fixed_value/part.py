@@ -16,7 +16,10 @@ doc = """
 - value (float) : 偏移价格， 默认值 0.01
 """
 
-part = SP_FixedValue()
+
+def part(value=0.01):
+    return SP_FixedValue(value)
+
 
 if __name__ == '__main__':
     print(sg)

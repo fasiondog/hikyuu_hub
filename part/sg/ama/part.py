@@ -18,7 +18,10 @@ AMA信号指示器
     or Buy When AMA - AMA[3] > filter 
 """
 
-part = SG_Single(AMA())
+
+def part(filter_n=20, filter_p=0.1, ama_n=10, ama_fast_n=2, ama_slow_n=30):
+    return SG_Single(AMA(ama_n, ama_fast_n, ama_slow_n))
+
 
 if __name__ == '__main__':
     print(sg)

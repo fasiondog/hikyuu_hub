@@ -16,7 +16,8 @@ doc = """
 - (float) percent = 0.001 : 偏移的固定比例
 """
 
-part = SP_FixedPercent()
+def part(percent=0.001)
+    return SP_FixedPercent(percent)
 
 if __name__ == '__main__':
     print(sg)
