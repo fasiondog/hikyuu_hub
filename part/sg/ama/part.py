@@ -20,7 +20,7 @@ AMA信号指示器
 
 
 def part(filter_n=20, filter_p=0.1, ama_n=10, ama_fast_n=2, ama_slow_n=30):
-    return SG_Single(AMA(ama_n, ama_fast_n, ama_slow_n))
+    return SG_Single(AMA(ama_n, ama_fast_n, ama_slow_n), filter_n=filter_n, filter_p=filter_p)
 
 
 if __name__ == '__main__':
