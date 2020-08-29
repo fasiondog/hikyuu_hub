@@ -8,7 +8,7 @@ version = '20200826'
 
 
 def part(filter_n=20, filter_p=0.1, ama_n=10, ama_fast_n=2, ama_slow_n=30):
-    house = hku.get_current_house(__file__)
+    house = hku.get_current_hub(__file__)
     sg = hku.get_part(
         "{}.sg.ama".format(house),
         filter_n=filter_n,
