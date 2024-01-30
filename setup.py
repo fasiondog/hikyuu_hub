@@ -177,7 +177,11 @@ python_part_template = """
 # -*- coding:utf-8 -*-
 
 from hikyuu import *
-from mypart import *
+
+try:
+    from .mypart import *
+except:
+    from mypart import *
 
 author = "{user}"
 version = "{today}"
@@ -199,19 +203,40 @@ import sys
 
 try:
     if sys.version_info[1] == 8:
-        from export38 import *
+        try:
+            from .export38 import *
+        except:
+            from export38 import *
     elif sys.version_info[1] == 9:
-        from export39 import *
+        try:
+            from .export39 import *
+        except:
+            from export39 import *
     elif sys.version_info[1] == 10:
-        from export310 import *
+        try:
+            from .export310 import *
+        except:
+            from export310 import *    
     elif sys.version_info[1] == 11:
-        from export311 import *
+        try:
+            from .export311 import *
+        except:
+            from export311 import *    
     elif sys.version_info[1] == 12:
-        from export312 import *
+        try:
+            from .export312 import *
+        except:
+            from export312 import *
     else:
-        from export import *
+        try:
+            from .export import *
+        except:
+            from export import *
 except:
-    from export import *
+    try:
+        from .export import *
+    except:
+        from export import *
 """
 
 
@@ -272,7 +297,8 @@ def create(t, n):
 def update():
     part_dirs = ['sys', 'prtflo', 'ind', 'part/af',
                  'part/cn', 'part/ev', 'part/mm', 'part/pg', 'part/se', 'part/sg', 'part/sp', 'part/st',]
-    for part_dir in part_dirs:
+    for item in part_dirs:
+        part_dir = f"{CURRENT_DIR}/{item}"
         if not os.path.lexists(part_dir):
             continue
         with os.scandir(part_dir) as it:
@@ -324,7 +350,8 @@ def build(t, n, v):
 def buildall(v):
     part_dirs = ['sys', 'prtflo', 'ind', 'part/af',
                  'part/cn', 'part/ev', 'part/mm', 'part/pg', 'part/se', 'part/sg', 'part/sp', 'part/st',]
-    for part_dir in part_dirs:
+    for item in part_dirs:
+        part_dir = f"{CURRENT_DIR}/{item}"
         if not os.path.lexists(part_dir):
             continue
         with os.scandir(part_dir) as it:
@@ -374,7 +401,8 @@ def clear(t, n):
 def clearall():
     part_dirs = ['sys', 'prtflo', 'ind', 'part/af',
                  'part/cn', 'part/ev', 'part/mm', 'part/pg', 'part/se', 'part/sg', 'part/sp', 'part/st',]
-    for part_dir in part_dirs:
+    for item in part_dirs:
+        part_dir = f"{CURRENT_DIR}/{item}"
         if not os.path.lexists(part_dir):
             continue
         with os.scandir(part_dir) as it:
