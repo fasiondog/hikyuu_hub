@@ -167,9 +167,9 @@ cpp_export_template = """
 using namespace hku;
 namespace py = pybind11;
 
-void export_part(py::module& m) {
-    m.def("my_part", []() { return RSI(); });
-}
+void export_part(py::module& m) {{
+    m.def("my_part", []() {{ return RSI(); }});
+}}
 """
 
 python_part_template = """
@@ -277,7 +277,8 @@ def create(t, n):
     with open(f"{part_dir}/main.cpp", 'w', encoding='utf=8') as f:
         f.write(cpp)
 
-    cpp = cpp_export_template
+    cpp = cpp_export_template.format(
+        today=today.strftime("%Y%m%d"), user=username)
     with open(f"{part_dir}/export.cpp", 'w', encoding='utf=8') as f:
         f.write(cpp)
 
