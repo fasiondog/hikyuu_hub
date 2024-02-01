@@ -77,3 +77,18 @@ python setup.py update
 ```shell
 python setup.py buildall
 ```
+
+## 在 hikyuu.interactive 中使用 c++ 部件
+
+在 hikyuu.interactive 中封装了 hub setup.py 中的相关命令，使用 build_hub 调用即可，如：
+
+```python
+from hikyuu.interactive import *
+build_hub('default', 'update')
+build_hub('default', 'buildall')
+build_hub('default', 'create -t ind -n example')
+```
+
+注意：
+
+windows系统中，由于动态库在使用时无法被替换，可能需要到 hub 仓库所在目录下执行编译
