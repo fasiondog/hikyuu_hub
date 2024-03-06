@@ -17,7 +17,7 @@ def part():
         x = ind(k.close)
         x.plot()
     """
-    return ROCP(0) + 1
+    return ROCR(0)
 
 
 if __name__ == '__main__':
