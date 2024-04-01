@@ -16,7 +16,11 @@ Hikyuu 策略仓库
 
 ## 创建纯 python 实现的部件
 
-在相应类别下创建自定义命名的子目录，并在改目录下创建 part.py 文件，其中定义 part 函数（可带参数），part 函数返回相应实例即可。具体可参见已有部件的实现。
+执行 setup.py 中的 create 命令，参数 -t 指明部件类别，-n 指定部件名称，如下创建一个名为 example 的指标部件：
+
+```shell
+python setup.py create -t ind -n example -cpp
+```
 
 ## 创建 c++ 实现的部件
 
@@ -28,10 +32,10 @@ Hikyuu 策略仓库
 
 ### 创建部件
 
-通过 setup.py 中的 create 命令创建相应的部件，参数 -t 指明部件类别，-n 指定部件名称，如下创建一个名为 example 的指标部件：
+通过 setup.py 中的 create 命令创建相应的部件时，需要通过参数"-cpp"明确指明，如：
 
 ```shell
-python setup.py create -t ind -n example
+python setup.py create -t ind -n example -cpp
 ```
 
 将在指定类别的目录下创建相应目录及相关文件。
@@ -92,3 +96,19 @@ build_hub('default', 'create -t ind -n example')
 注意：
 
 windows系统中，由于动态库在使用时无法被替换，可能需要到 hub 仓库所在目录下执行编译
+
+## 测试部件
+
+每一个使用 create 命令创建的部件，都会同时创建一个 test.py，可以在其中编写相应的测试代码
+
+使用 test 命令执行部件测试，如:
+
+```shell
+python setup.py test -t part_type -n part_name
+```
+
+使用 testall 命令执行全部部件测试，如：
+
+```shell
+python setup.py testall
+```
