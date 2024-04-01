@@ -12,6 +12,3 @@ def part(capital=10000.00):
 
 
 part.__doc__ = MM_FixedCapital.__doc__
-
-if __name__ == '__main__':
-    print(part())

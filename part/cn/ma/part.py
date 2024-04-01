@@ -11,8 +11,3 @@ version = "20240201"
 def part(n=100):
     """收盘价n日均线之上"""
     return CN_Bool(CLOSE() > MA(CLOSE(), n))
-
-
-if __name__ == "__main__":
-    ind = part()
-    print(ind)

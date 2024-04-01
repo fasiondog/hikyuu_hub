@@ -12,6 +12,3 @@ def part(risk=1000.00):
 
 
 part.__doc__ = MM_FixedRisk.__doc__
-
-if __name__ == '__main__':
-    print(part())

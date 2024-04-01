@@ -11,8 +11,3 @@ version = "20240222"
 def part(n=100, market="SH"):
     """doc"""
     return EV_Bool(CLOSE() > MA(CLOSE(), n), market)
-
-
-if __name__ == "__main__":
-    ind = part()
-    print(ind)

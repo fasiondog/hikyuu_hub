@@ -12,6 +12,3 @@ def part(n1=10, n2=3, p=2.0):
 
 
 part.__doc__ = ST_Saftyloss.__doc__
-
-if __name__ == '__main__':
-    print(part())

@@ -12,6 +12,3 @@ def part(p=0.1, max_loss=1000.0):
 
 
 part.__doc__ = MM_WilliamsFixedRisk.__doc__
-
-if __name__ == '__main__':
-    print(part())

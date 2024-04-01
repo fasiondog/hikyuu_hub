@@ -18,14 +18,3 @@ def part():
         x.plot()
     """
     return ROCR(0)
-
-
-if __name__ == '__main__':
-    from hikyuu.interactive import *
-    import matplotlib.pylab as plt
-    k = get_kdata("sz000001", Query(-300))
-    ind = part()
-    f = create_figure(2)
-    k.plot(axes=f[0])
-    ind(k.close).plot(axes=f[1])
-    plt.show()

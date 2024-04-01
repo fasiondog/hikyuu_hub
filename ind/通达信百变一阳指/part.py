@@ -26,13 +26,3 @@ def part(n=10, fast_n=2, slow_n=30):
     """
     XG.name = "通达信百变一阳指"
     return XG
-
-
-if __name__ == '__main__':
-    from hikyuu.interactive import *
-    import matplotlib.pylab as plt
-    k = get_kdata("sz000001", Query(-300))
-    ind = part()
-    # print(ind)
-    ind(k).plot()
-    plt.show()

@@ -12,6 +12,3 @@ def part(value=0.01):
 
 
 part.__doc__ = SP_FixedValue.__doc__
-
-if __name__ == '__main__':
-    print(part())

@@ -12,6 +12,3 @@ def part():
 
 
 part.__doc__ = SE_Fixed.__doc__
-
-if __name__ == '__main__':
-    print(part())

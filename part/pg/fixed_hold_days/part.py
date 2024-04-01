@@ -12,6 +12,3 @@ def part(days=5):
 
 
 part.__doc__ = PG_FixedHoldDays.__doc__
-
-if __name__ == '__main__':
-    print(part())

@@ -29,7 +29,3 @@ def part(filter_n=20, filter_p=0.1, ama_n=10, ama_fast_n=2, ama_slow_n=30, fixed
     mm = hku.get_part('{}.mm.fixed_count'.format(house), n=fixed_count)
     sys = hku.SYS_Simple(sg=sg, mm=mm)
     return sys
-
-
-if __name__ == '__main__':
-    print(part())

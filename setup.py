@@ -239,6 +239,43 @@ except:
         from export import *
 """
 
+only_python_template = """
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+from hikyuu import *
+
+author = "{user}"
+version = "{today}"
+
+def part():
+    \"\"\"doc\"\"\"
+    return "return your part instance"
+"""
+
+test_template = """
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+from hikyuu.interactive import *
+try:
+    from .part import *
+except:
+    from part import *
+
+if __name__ == "__main__":
+    # 执行 testall 命令时，会多传入一个参数，防止测试时间过长
+    # 比如如果在测试代码中执行了绘图操作，可以打开下面的注释代码
+    # 此时执行 testall 命令时，将直接返回
+    # if len(sys.argv) > 1:
+    #     print("ignore test")
+    #     exit(0)
+
+    # 请在下方编写测试代码
+    ind = part()
+    print(ind)
+"""
+
 
 @click.group()
 def cli():
@@ -259,14 +296,28 @@ def cli():
     type=str,
     help="名称"
 )
-def create(t, n):
+@click.option('-cpp', '--cpp', is_flag=True, help='仅创建 python 版本的组件')
+def create(t, n, cpp):
     part_dir = f"{CURRENT_DIR}/{t}/{n}" if t in ("ind",
                                                  "sys", "prtflo", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
     if os.path.lexists(part_dir):
-        print(f'Failed! "{part_dir}" is existed!')
+        print("*****************************************************************")
+        print(f'Failed!\n "{part_dir}" is existed!')
+        print("*****************************************************************")
         return
 
     os.makedirs(part_dir)
+
+    with open(f"{part_dir}/test.py", 'w', encoding='utf=8') as f:
+        f.write(test_template)
+
+    if not cpp:
+        # 仅创建 Python 版本
+        python = only_python_template.format(
+            today=today.strftime("%Y%m%d"), user=username)
+        with open(f"{part_dir}/part.py", 'w', encoding='utf=8') as f:
+            f.write(python)
+        return
 
     xmake_lua = xmake_template.format(
         include_dir=include_dir, lib_dir=lib_dir)
@@ -340,10 +391,10 @@ def build(t, n, v):
     verbose = " -vD" if v else ""
     if sys.platform == 'win32':
         os.system(
-            f"cd {part_dir} & xmake f -c -y & xmake{verbose} & python part.py")
+            f"cd {part_dir} & xmake f -c -y & xmake{verbose}")
     else:
         os.system(
-            f"cd {part_dir} ; xmake f -c -y ; xmake{verbose} ; python part.py")
+            f"cd {part_dir} ; xmake f -c -y ; xmake{verbose}")
 
 
 @click.command()
@@ -369,6 +420,69 @@ def buildall(v):
                         else:
                             os.system(
                                 f"cd {part_xmake} ; xmake f -c -y ; xmake{verbose} ; python part.py")
+
+
+@click.command()
+@click.option(
+    '-t',
+    '--t',
+    type=click.Choice(
+        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'prtflo', 'sys', 'ind', 'other']),
+    help="组件类型"
+)
+@click.option(
+    '-n',
+    '--n',
+    type=str,
+    help="名称"
+)
+def test(t, n):
+    part_dir = f"{CURRENT_DIR}/{t}/{n}" if t in ("ind",
+                                                 "sys", "prtflo", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
+    if not os.path.exists(f"{part_dir}/test.py"):
+        print("*****************************************************************")
+        print(f'Failed!!!!!\n"{part_dir}/test.py" is not existed!')
+        print("*****************************************************************")
+        return
+
+    part_dir = part_dir.replace('\\', "\\\\")
+
+    print(part_dir)
+    if sys.platform == 'win32':
+        os.system(
+            f"cd {part_dir} & python test.py")
+    else:
+        os.system(
+            f"cd {part_dir} ; python test.py")
+
+
+@click.command()
+def testall():
+    part_dirs = ['sys', 'prtflo', 'ind', 'other', 'part/af',
+                 'part/cn', 'part/ev', 'part/mm', 'part/pg', 'part/se', 'part/sg', 'part/sp', 'part/st',]
+    for item in part_dirs:
+        part_dir = f"{CURRENT_DIR}/{item}"
+        if not os.path.lexists(part_dir):
+            continue
+        with os.scandir(part_dir) as it:
+            for entry in it:
+                if (not entry.name.startswith('.')) and entry.is_dir() and (entry.name != "__pycache__"):
+                    part_name = f"{part_dir}/{entry.name}"
+                    print(
+                        f"========================\ntesting {part_name} ...\n========================")
+                    if not os.path.exists(f"{part_name}/test.py"):
+                        print(
+                            "*****************************************************************")
+                        print(
+                            f'Failed!!!!\n"{part_dir}/test.py" is not existed!')
+                        print(
+                            "*****************************************************************")
+                    if sys.platform == 'win32':
+                        os.system(
+                            f"cd {part_name}  & python test.py 1")
+                    else:
+                        os.system(
+                            f"cd {part_name} ; python test.py 1")
 
 
 @click.command()
@@ -420,6 +534,8 @@ cli.add_command(create)
 cli.add_command(update)
 cli.add_command(build)
 cli.add_command(buildall)
+cli.add_command(test)
+cli.add_command(testall)
 cli.add_command(clear)
 cli.add_command(clearall)
 

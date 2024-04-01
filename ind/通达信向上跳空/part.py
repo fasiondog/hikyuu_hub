@@ -18,14 +18,3 @@ def part(n=10, fast_n=2, slow_n=30):
     """
     XG.name = "通达信向上跳空"
     return XG
-
-
-if __name__ == '__main__':
-    from hikyuu.interactive import *
-    import matplotlib.pylab as plt
-    k = get_kdata("sz000001", Query(-300))
-    ind = part()
-    f = create_figure(2)
-    k.plot(axes=f[0])
-    ind(k).plot(axes=f[1])
-    plt.show()

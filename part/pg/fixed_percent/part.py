@@ -12,6 +12,3 @@ def part(p=0.2):
 
 
 part.__doc__ = PG_FixedPercent.__doc__
-
-if __name__ == '__main__':
-    print(part())

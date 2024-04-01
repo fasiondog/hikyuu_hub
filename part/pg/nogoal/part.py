@@ -12,6 +12,3 @@ def part():
 
 
 part.__doc__ = PG_NoGoal.__doc__
-
-if __name__ == '__main__':
-    print(part())
