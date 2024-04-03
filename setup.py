@@ -287,7 +287,7 @@ def cli():
     '-t',
     '--t',
     type=click.Choice(
-        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'prtflo', 'sys', 'ind', 'other']),
+        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'pf', 'sys', 'ind', 'other']),
     help="组件类型"
 )
 @click.option(
@@ -299,7 +299,7 @@ def cli():
 @click.option('-cpp', '--cpp', is_flag=True, help='仅创建 python 版本的组件')
 def create(t, n, cpp):
     part_dir = f"{CURRENT_DIR}/{t}/{n}" if t in ("ind",
-                                                 "sys", "prtflo", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
+                                                 "sys", "pf", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
     if os.path.lexists(part_dir):
         print("*****************************************************************")
         print(f'Failed!\n "{part_dir}" is existed!')
@@ -347,7 +347,7 @@ def create(t, n, cpp):
 
 @click.command()
 def update():
-    part_dirs = ['sys', 'prtflo', 'ind', 'other', 'part/af',
+    part_dirs = ['sys', 'pf', 'ind', 'other', 'part/af',
                  'part/cn', 'part/ev', 'part/mm', 'part/pg', 'part/se', 'part/sg', 'part/sp', 'part/st',]
     for item in part_dirs:
         part_dir = f"{CURRENT_DIR}/{item}"
@@ -368,7 +368,7 @@ def update():
     '-t',
     '--t',
     type=click.Choice(
-        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'prtflo', 'sys', 'ind', 'other']),
+        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'pf', 'sys', 'ind', 'other']),
     help="组件类型"
 )
 @click.option(
@@ -380,7 +380,7 @@ def update():
 @click.option('-v', '--v', is_flag=True, help='显示详细的编译信息')
 def build(t, n, v):
     part_dir = f"{CURRENT_DIR}/{t}/{n}" if t in ("ind",
-                                                 "sys", "prtflo", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
+                                                 "sys", "pf", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
     if not os.path.lexists(part_dir):
         print(f'"{part_dir}" is not existed!')
         return
@@ -400,7 +400,7 @@ def build(t, n, v):
 @click.command()
 @click.option('-v', '--v', is_flag=True, help='显示详细的编译信息')
 def buildall(v):
-    part_dirs = ['sys', 'prtflo', 'ind', 'other', 'part/af',
+    part_dirs = ['sys', 'pf', 'ind', 'other', 'part/af',
                  'part/cn', 'part/ev', 'part/mm', 'part/pg', 'part/se', 'part/sg', 'part/sp', 'part/st',]
     for item in part_dirs:
         part_dir = f"{CURRENT_DIR}/{item}"
@@ -427,7 +427,7 @@ def buildall(v):
     '-t',
     '--t',
     type=click.Choice(
-        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'prtflo', 'sys', 'ind', 'other']),
+        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'pf', 'sys', 'ind', 'other']),
     help="组件类型"
 )
 @click.option(
@@ -438,7 +438,7 @@ def buildall(v):
 )
 def test(t, n):
     part_dir = f"{CURRENT_DIR}/{t}/{n}" if t in ("ind",
-                                                 "sys", "prtflo", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
+                                                 "sys", "pf", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
     if not os.path.exists(f"{part_dir}/test.py"):
         print("*****************************************************************")
         print(f'Failed!!!!!\n"{part_dir}/test.py" is not existed!')
@@ -458,7 +458,7 @@ def test(t, n):
 
 @click.command()
 def testall():
-    part_dirs = ['sys', 'prtflo', 'ind', 'other', 'part/af',
+    part_dirs = ['sys', 'pf', 'ind', 'other', 'part/af',
                  'part/cn', 'part/ev', 'part/mm', 'part/pg', 'part/se', 'part/sg', 'part/sp', 'part/st',]
     for item in part_dirs:
         part_dir = f"{CURRENT_DIR}/{item}"
@@ -490,7 +490,7 @@ def testall():
     '-t',
     '--t',
     type=click.Choice(
-        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'prtflo', 'sys', 'ind', 'other']),
+        ['af', 'cn', 'ev', 'mm', 'pg', 'se', 'sg', 'sp', 'st', 'pf', 'sys', 'ind', 'other']),
     help="组件类型"
 )
 @click.option(
@@ -501,7 +501,7 @@ def testall():
 )
 def clear(t, n):
     part_dir = f"{CURRENT_DIR}/{t}/{n}" if t in ("ind",
-                                                 "sys", "prtflo", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
+                                                 "sys", "pf", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
     if not os.path.lexists(part_dir):
         print(f'"{part_dir}" is not existed!')
         return
@@ -514,7 +514,7 @@ def clear(t, n):
 
 @click.command()
 def clearall():
-    part_dirs = ['sys', 'prtflo', 'ind', 'other', 'part/af',
+    part_dirs = ['sys', 'pf', 'ind', 'other', 'part/af',
                  'part/cn', 'part/ev', 'part/mm', 'part/pg', 'part/se', 'part/sg', 'part/sp', 'part/st',]
     for item in part_dirs:
         part_dir = f"{CURRENT_DIR}/{item}"
