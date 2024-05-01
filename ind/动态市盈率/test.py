@@ -20,7 +20,7 @@ if __name__ == "__main__":
     ind = part()
     print(ind)
 
-    import matplotlib.pylab as plt
-    k = get_kdata("sz000001", Query(-200))
-    ind(k).plot(label="平安银行动态市盈率", legend_on=True)
-    plt.show()
+    # import matplotlib.pylab as plt
+    # k = get_kdata("sz000001", Query(-200))
+    # ind(k).plot(label="平安银行动态市盈率", legend_on=True)
+    # plt.show()
