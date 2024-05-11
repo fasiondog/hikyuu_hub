@@ -263,6 +263,11 @@ try:
 except:
     from part import *
 
+import sys
+if sys.platform == 'win32':
+    import os
+    os.system('chcp 65001')
+
 if __name__ == "__main__":
     # 执行 testall 命令时，会多传入一个参数，防止测试时间过长
     # 比如如果在测试代码中执行了绘图操作，可以打开下面的注释代码
