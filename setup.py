@@ -272,7 +272,7 @@ if __name__ == "__main__":
     # 执行 testall 命令时，会多传入一个参数，防止测试时间过长
     # 比如如果在测试代码中执行了绘图操作，可以打开下面的注释代码
     # 此时执行 testall 命令时，将直接返回
-    # if len(sys.argv) > 1:
+    # if len(sys.argv) <= 1:
     #     print("ignore test")
     #     exit(0)
 
