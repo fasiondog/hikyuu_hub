@@ -4,3 +4,8 @@ build
 *.so
 __pycache__
 xmake.lua
+
+*.csv
+*_actions.txt
+.virtual_documents
+.ipynb_checkpoints

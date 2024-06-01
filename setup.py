@@ -515,6 +515,9 @@ def clear(t, n):
     print(part_dir)
     shutil.rmtree(f"{part_dir}/build", True)
     shutil.rmtree(f"{part_dir}/.xmake", True)
+    shutil.rmtree(f"{part_dir}/__pycache__", True)
+    shutil.rmtree(f"{part_dir}/.ipynb_checkpoints", True)
+    shutil.rmtree(f"{part_dir}/.virtual_documents", True)
 
 
 @click.command()
@@ -533,6 +536,11 @@ def clearall():
                         print(part_xmake)
                         shutil.rmtree(f"{part_xmake}/build", True)
                         shutil.rmtree(f"{part_xmake}/.xmake", True)
+                shutil.rmtree(f"{part_dir}/{entry.name}/__pycache__", True)
+                shutil.rmtree(
+                    f"{part_dir}/{entry.name}/.ipynb_checkpoints", True)
+                shutil.rmtree(
+                    f"{part_dir}/{entry.name}/.virtual_documents", True)
 
 
 cli.add_command(create)
