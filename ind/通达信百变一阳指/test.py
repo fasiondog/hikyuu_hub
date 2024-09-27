@@ -14,6 +14,8 @@ if __name__ == '__main__':
     import matplotlib.pylab as plt
     k = get_kdata("sz000001", Query(-300))
     ind = part()
-    # print(ind)
-    ind(k).plot()
-    plt.show()
+    print(ind)
+
+    if len(sys.argv) > 1:
+        ind(k).plot()
+        plt.show()
