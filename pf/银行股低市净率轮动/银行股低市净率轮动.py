@@ -44,10 +44,20 @@ if __name__ == "__main__":
     @hku_catch(ret=ScoreRecordList(), trace=True)
     def get_selected(self, date):
         scores = self.mf.get_scores(date)
-        if len(scores) < 2:
+        if len(scores) == 0:
             return []
-        return [SystemWeight(self.stk_sys_dict[scores[-1].stock], scores[-1].value),
-                SystemWeight(self.stk_sys_dict[scores[-2].stock], scores[-2].value)]
+        elif len(scores) == 1 and not isnan(scores[-1].value):
+            # print(scores[-1].value)
+            return [SystemWeight(self.stk_sys_dict[scores[-1].stock], scores[-1].value),]
+        else:
+            ret = []
+            for i in range(len(scores)-1, -1, -1):
+                if not isnan(scores[i].value):
+                    ret.append(SystemWeight(
+                        self.stk_sys_dict[scores[i].stock], scores[i].value))
+                    if len(ret) == 2:
+                        break
+            return ret
 
     my_se = crtSE(calculate, get_selected=get_selected)
     my_se.mf = my_mf
@@ -55,15 +65,17 @@ if __name__ == "__main__":
     my_sg = SG_Cycle()
     # my_sg = SG_AllwaysBuy()
     my_mm = MM_Nothing()
-    my_sys = SYS_Simple(tm=crtTM(start_date), sg=my_sg, mm=my_mm)
+    # my_sys = SYS_Simple(tm=crtTM(start_date), sg=my_sg, mm=my_mm)
+    my_sys = SYS_Simple(sg=my_sg, mm=my_mm)
     my_sys.set_param("buy_delay", False)
-    my_sys.set_param("trace", True)
+    # my_sys.set_param("trace", True)
 
     my_se = my_se.clone()
     my_se.add_stock_list(stks, my_sys)
 
     my_af = AF_EqualWeight()
-    my_tm = crtTM(start_date, init_cash=100000)  # , cost_func=TC_FixedA2017())
+    # , cost_func=TC_FixedA2017())
+    my_tm = crtTM(start_date, init_cash=100000, name="PY_SYS")
     pf = PF_Simple(tm=my_tm, af=my_af, se=my_se)
     pf.set_param("trace", True)
     pf.run(query, adjust_cycle=20)
@@ -71,4 +83,5 @@ if __name__ == "__main__":
 
     my_tm.tocsv(".")
     print(my_tm)
+    print(pf)
     plt.show()

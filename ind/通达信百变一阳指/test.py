@@ -15,5 +15,5 @@ if __name__ == '__main__':
     k = get_kdata("sz000001", Query(-300))
     ind = part()
     # print(ind)
-    # ind(k).plot()
-    # plt.show()
+    ind(k).plot()
+    plt.show()

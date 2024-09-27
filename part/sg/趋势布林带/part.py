@@ -58,9 +58,14 @@ def part(n: int = 100, band: float = 0.5) -> SignalBase:
     :param int n: 窗口周期
     :param float band: 轨道宽度
     """
+    # 实现写法1
     # my_sg = crtSG(bulindai_calculate, params={"n": n, "band": band})
     # return my_sg.clone()
+
+    # 实现写法2
     # return SG_BuLin(n, band)
+
+    # 实现写法3
     ma = MA(CLOSE, n)
     sd = STDEV(CLOSE, n)
     upper = ma + band * sd

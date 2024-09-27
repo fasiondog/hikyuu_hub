@@ -19,6 +19,6 @@ def part(tm: TradeManager, ref_stk=None):
     local_hub = get_current_hub(__file__)
     市净率 = get_part("default.ind.市净率")
     stks = [s for s in sm.get_block("指数板块", "300银行")]
-    my_pf = get_part(f"{local_hub}.pf.最低单因子轮动", tm=tm,
+    my_pf = get_part(f"{local_hub}.pf.base_最低单因子轮动", tm=tm,
                      ind=市净率, bottomn=2, stks=stks, ref_stk=ref_stk)
     return my_pf
