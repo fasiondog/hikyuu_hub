@@ -19,7 +19,7 @@ Hikyuu 策略仓库
 执行 setup.py 中的 create 命令，参数 -t 指明部件类别，-n 指定部件名称，如下创建一个名为 example 的指标部件：
 
 ```shell
-python setup.py create -t ind -n example -cpp
+python setup.py create -t ind -n example
 ```
 
 ## 创建 c++ 实现的部件
