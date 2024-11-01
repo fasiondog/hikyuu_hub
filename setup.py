@@ -40,6 +40,7 @@ end
 
 add_repositories("hikyuu-repo https://github.com/fasiondog/hikyuu_extern_libs.git")
 add_requires("pybind11", {{system = false}})
+add_defines("SPDLOG_ACTIVE_LEVEL=0")
 
 add_requires("pybind11", {{system = false}})
 add_requires("boost", {{
