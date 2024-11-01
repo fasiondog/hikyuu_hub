@@ -49,7 +49,7 @@ add_requires("boost", {{
     shared = is_plat("windows"),
     multi = true,
     date_time = true,
-    filesystem = true,
+    filesystem = false,
     serialization = true,
     system = false,
     python = false,
