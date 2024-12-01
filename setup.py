@@ -54,6 +54,7 @@ add_requires("boost", {{
     serialization = true,
     system = false,
     python = false,
+    cmake = false,
   }},
 }})
 
