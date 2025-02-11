@@ -9,3 +9,4 @@ xmake.lua
 *_actions.txt
 .virtual_documents
 .ipynb_checkpoints
+.DS_Store
