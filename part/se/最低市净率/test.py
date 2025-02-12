@@ -2,11 +2,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from hikyuu.interactive import *
-try:
-    from .part import *
-except:
-    from part import *
+import sys
+if sys.platform == 'win32':
+    import os
+    os.system('chcp 65001')
+
 
 if __name__ == "__main__":
     # 执行 testall 命令时，会多传入一个参数，防止测试时间过长
@@ -16,10 +16,12 @@ if __name__ == "__main__":
     #     print("ignore test")
     #     exit(0)
 
+    from hikyuu.interactive import *
+    try:
+        from .part import *
+    except:
+        from part import *
+
     # 请在下方编写测试代码
     my_se = part()
-    stks = [s for s in sm.get_block("指数板块", "300银行")]
-    my_se.prepare(Query(Datetime(20200101)), stks)
-
     print(my_se)
-    print(my_se.mf)

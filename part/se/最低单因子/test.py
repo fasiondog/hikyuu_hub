@@ -2,11 +2,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from hikyuu.interactive import *
-try:
-    from .part import *
-except:
-    from part import *
 
 import sys
 if sys.platform == 'win32':
@@ -20,6 +15,12 @@ if __name__ == "__main__":
     # if len(sys.argv) > 1:
     #     print("ignore test")
     #     exit(0)
+
+    from hikyuu.interactive import *
+    try:
+        from .part import *
+    except:
+        from part import *
 
     # 请在下方编写测试代码
     local_hub = get_current_hub(__file__)
