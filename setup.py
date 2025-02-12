@@ -39,8 +39,6 @@ if is_plat("windows") then
 end
 
 add_repositories("hikyuu-repo https://github.com/fasiondog/hikyuu_extern_libs.git")
-add_requires("pybind11", {{system = false}})
-add_defines("SPDLOG_ACTIVE_LEVEL=0")
 
 add_requires("pybind11", {{system = false}})
 add_requires("boost", {{
@@ -70,6 +68,8 @@ target("export")
     end
 
     add_packages("pybind11", "boost", "fmt", "spdlog")
+
+    add_defines("SPDLOG_ACTIVE_LEVEL=0")
 
     add_includedirs("{include_dir}")
     add_linkdirs("{lib_dir}")
@@ -229,6 +229,11 @@ try:
             from .export312 import *
         except:
             from export312 import *
+    elif sys.version_info[1] == 13:
+        try:
+            from .export313 import *
+        except:
+            from export313 import *
     else:
         try:
             from .export import *
@@ -264,12 +269,6 @@ import sys
 if sys.platform == 'win32':
     os.system('chcp 65001')
 
-# os.environ['HKU_STOCK_LIST'] = "sz000001;sz000002"  # 仅加载指定的证券
-# os.environ['HKU_KTYPE_LIST'] = 'day;min'  # 加载K线类型（同时包含加载顺序）
-# os.environ['HKU_LOAD_STOCK_WEIGHT'] = '0'  # 禁止加载权息数据
-# os.environ['HKU_LOAD_HISTORY_FINANCE'] = '0'  # 禁止加载历史财务信息
-# os.environ['HKU_START_SPOT'] = '0'  # 禁止启动行情接收代理
-
 from hikyuu.interactive import *  # NOQA: E402
 try:
     from .part import *
@@ -285,6 +284,17 @@ if __name__ == "__main__":
     #     print("ignore test")
     #     exit(0)
 
+    # 仅加载测试需要的数据，请根据需要修改
+    options = {
+        "stock_list": ["sh000001"],
+        "ktype_list": ["day"],
+        "load_history_finance": False,
+        "load_weight": False,
+        "start_spot": False,
+        "spot_worker_num": 1,
+    }
+    load_hikyuu(**options)
+    
     # 请在下方编写测试代码
     ind = part()
     print(ind)
