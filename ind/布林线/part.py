@@ -24,4 +24,6 @@ def part(n=20, band=2.0):
     sd = STDEV(CLOSE(), n=n)
     top = ma + band * sd
     bottom = ma - band * sd
-    return WEAVE(ma, WEAVE(top, bottom))
+    ret = WEAVE(ma, WEAVE(top, bottom))
+    ret.name = '布林线'
+    return ret
