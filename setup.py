@@ -99,12 +99,12 @@ target("export")
         local pydir = nil;
         if os.getenv("CONDA_PREFIX") ~= nil then
             local py3config = os.getenv("CONDA_PREFIX") .. "/bin/python3-config"
-            pydir = try {{ function () return os.iorun(py3config .. " --includes"):trim() end }}
+            pydir = os.iorun(py3config .. " --includes"):trim()
         else
-            pydir = try {{ function () return os.iorun("python3-config --includes"):trim() end }}
+            pydir = os.iorun("python3-config --includes"):trim()
         end
         assert(pydir, "python3-config not found!")
-        target:add("cxflags", pydir)   
+        target:add("cxflags", pydir)
     end)
     
     after_build(function(target)
