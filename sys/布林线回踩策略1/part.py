@@ -23,7 +23,7 @@ def part(boll_n: int = 20, band: float = 2.0, ma_n: int = 100):
     sg2 = get_part(f"{local_hub}.sg.卖出触及布林线中轨并反转", n=boll_n, band=band)
     sg = sg1 + sg2
     sg.set_param("alternate", True)
-    my_sys = SYS_Simple(sg=sg, mm=MM_Nothing(),
-                        cn=get_part(f"{local_hub}.cn.ma", n=ma_n))
+    # my_sys = SYS_Simple(sg=sg)
+    my_sys = SYS_Simple(sg=sg, cn=get_part(f"{local_hub}.cn.ma", n=ma_n))
     my_sys.name = "布林线回踩策略1"
     return my_sys
