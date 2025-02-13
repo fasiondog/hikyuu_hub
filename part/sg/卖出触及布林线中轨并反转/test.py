@@ -7,13 +7,6 @@ import sys
 if sys.platform == 'win32':
     os.system('chcp 65001')
 
-from hikyuu import *
-try:
-    from .part import *
-except:
-    from part import *
-
-
 if __name__ == "__main__":
     # 执行 testall 命令时，会多传入一个参数，防止测试时间过长
     # 比如如果在测试代码中执行了绘图操作，可以打开下面的注释代码
@@ -23,9 +16,15 @@ if __name__ == "__main__":
         print(ind)
         exit(0)
 
+    from hikyuu import *
+    try:
+        from .part import *
+    except:
+        from part import *
+
     # 仅加载测试需要的数据，请根据需要修改
     options = {
-        "stock_list": ["sh000001"],
+        "stock_list": ["sz000001"],
         "ktype_list": ["day"],
         "load_history_finance": False,
         "load_weight": False,
@@ -35,22 +34,14 @@ if __name__ == "__main__":
     load_hikyuu(**options)
 
     # 请在下方编写测试代码
-    s = sm['sh000001']
-    k = s.get_kdata(Query(-100))
+    sg = part()
+    print(sg)
 
-    ind = part()
-    x = ind(k)
-    print(x)
+    stk = sm[options['stock_list'][0]]
+    k = stk.get_kdata(Query(Datetime(20231201), Datetime(20240901)))
+    sg.to = k
 
-    import matplotlib.pyplot as plt
-    mb = RESULT(x, 0)
-    mb.name = "Middle Band"
-    ub = RESULT(x, 1)
-    ub.name = "Upper Band"
-    lb = RESULT(x, 2)
-    lb.name = "Lower Band"
-
-    mb.plot(legend_on=True)
-    ub.plot(new=False, legend_on=True)
-    lb.plot(new=False, legend_on=True)
+    from matplotlib import pyplot as plt
+    k.plot()
+    sg.plot(new=False)
     plt.show()

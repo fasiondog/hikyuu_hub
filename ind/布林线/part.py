@@ -15,7 +15,7 @@ def part(n=20, band=2.0):
 
     该指标指标集为3个, 0: 中轨线, 1: 上轨线, 2: 下轨线
 
-    : param int n: 移动平均线周期
+    : param int n: 移动平均线周期, 默认20
     : param float band: 轨道宽度（中轨距离 band 倍标准差处
     : return: 布林线
     : rtype: hikyuu.indicator.Indicator
