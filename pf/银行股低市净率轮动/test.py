@@ -37,13 +37,13 @@ if __name__ == "__main__":
 
     # 请在下方编写测试代码
     my_tm = crtTM(Datetime(20200101), init_cash=100000)
-    pf = get_part(f"{local_hub}.pf.银行股低市净率轮动", tm=my_tm)
+    pf = get_part(f"{local_hub}.pf.银行股低市净率轮动", tm=my_tm, adjust_cycle=20)
     print(pf)
 
     if len(sys.argv) <= 1:
         pf.set_param("trace", True)
         query = Query(Datetime(20200101))
-        pf.run(query, adjust_cycle=20)
+        pf.run(query)
 
         pf.tm.tocsv(".")
 
