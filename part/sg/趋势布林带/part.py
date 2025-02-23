@@ -49,7 +49,7 @@ def bulindai_calculate(self: SignalBase, k: KData):
 def part(n: int = 100, band: float = 0.5) -> SignalBase:
     """
     布林带主要有三条线：中间带 (Middle Band)、以及上下两条边界线，称作上带 (Upper Band) 和下带 (Lower Band)。
-    当股价向上突破上界时，为卖出信号，当股价向下突破下界时，为买入信号。
+    当股价向上突破上界时，为买入信号，当股价向下突破下界时，为卖出信号。
 
     中轨: MA
     上轨: MA + band * STDEV
