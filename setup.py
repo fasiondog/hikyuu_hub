@@ -80,6 +80,16 @@ target("export")
     if is_plat("windows") then
         add_cxflags("-EHsc", "/Zc:__cplusplus", "/utf-8")
     end
+    
+    if is_plat("macosx") then
+        add_links("boost_date_time-mt", "boost_serialization-mt")
+        add_links("hku_hdf5", "hku_hdf5_cpp", "mysqlclient", "sqlite3", "nng")
+        if is_plat("macosx") then
+            add_linkdirs("/usr/lib")
+            -- macosx 下不能主动链接 python，所以需要使用如下编译选项
+            add_shflags("-undefined dynamic_lookup")
+        end    
+    end    
 
     on_load("windows", "linux", "macosx", function(target)
         import("lib.detect.find_tool")
