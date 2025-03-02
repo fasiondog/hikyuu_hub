@@ -16,7 +16,7 @@ VAR5 = SMA(MAX(CLOSE() - REF(CLOSE(), 1), 0), 5, 1) / \
     SMA(ABS(CLOSE()-REF(CLOSE(), 1)), 5, 1) * 100
 CC = EMA(VAR5, 3)
 XG = CROSS(CC, BB) & (CC >= REF(CC, 1)) & (BB <= REF(BB, 3)) & (CC >= 49.5) & (
-    MA(C, 3) >= REF(MA(C, 3), 1)) & (MA(C, 7) >= REF(MA(C, 7), 1)) & (MA(C, 60) > REF(MA(C, 60), 3))
+    MA(CLOSE(), 3) >= REF(MA(CLOSE(), 3), 1)) & (MA(CLOSE(), 7) >= REF(MA(CLOSE(), 7), 1)) & (MA(CLOSE(), 60) > REF(MA(CLOSE(), 60), 3))
 
 
 def part(n=10, fast_n=2, slow_n=30):

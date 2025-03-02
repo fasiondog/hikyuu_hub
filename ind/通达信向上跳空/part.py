@@ -6,9 +6,9 @@ author = "fasiondog"
 # 版本
 version = '20231223'
 
-TK = (O > REF(H, 1)) & (L > REF(H, 1))
+TK = (OPEN() > REF(HIGH(), 1)) & (LOW() > REF(HIGH(), 1))
 TS = BARSLAST(TK)
-XG = BETWEEN(C, REF(H, TS+1), REF(L, TS)) & (TS < 10)
+XG = BETWEEN(CLOSE(), REF(HIGH(), TS+1), REF(LOW(), TS)) & (TS < 10)
 
 
 def part(n=10, fast_n=2, slow_n=30):
