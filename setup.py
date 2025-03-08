@@ -267,7 +267,9 @@ version = "{today}"
 
 def part():
     \"\"\"doc\"\"\"
-    return "return your part instance"
+    ret = Indicator()
+    ret.name = "{name}"
+    return ret
 """
 
 test_template = """
@@ -349,7 +351,7 @@ def create(t, n, cpp):
     if not cpp:
         # 仅创建 Python 版本
         python = only_python_template.format(
-            today=today.strftime("%Y%m%d"), user=username)
+            today=today.strftime("%Y%m%d"), user=username, name=n)
         with open(f"{part_dir}/part.py", 'w', encoding='utf=8') as f:
             f.write(python)
         return
