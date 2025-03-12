@@ -12,3 +12,7 @@ def part():
 
 
 part.__doc__ = AF_EqualWeight.__doc__
+
+
+if __name__ == '__main__':
+    print(part())
