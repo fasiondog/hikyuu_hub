@@ -34,8 +34,6 @@ if __name__ == "__main__":
     # 比如如果在测试代码中执行了绘图操作，可以打开下面的注释代码
     # 此时执行 testall 命令时，将直接返回
     if len(sys.argv) > 1:
-        my_sys = part()
-        print(my_sys)
         exit(0)
 
     import os
