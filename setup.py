@@ -200,9 +200,41 @@ version = "{today}"
 
 def part():
     \"\"\"doc\"\"\"
-    return my_part()
+    ret = my_part()
+    ret.name = "{name}"
 
-if __name__ == "__main__":
+if __name__ == \"__main__\":
+    # 执行 testall 命令时，会多传入一个参数，防止测试时间过长
+    # 比如如果在测试代码中执行了绘图操作，可以打开下面的注释代码
+    # 此时执行 testall 命令时，将直接返回
+    if len(sys.argv) > 1:
+        ind = part()
+        print(ind)
+        exit(0)
+
+    import os
+    import sys
+    if sys.platform == 'win32':
+        os.system('chcp 65001')
+
+    from hikyuu import *
+    try:
+        from .part import *
+    except:
+        from part import *
+
+    # 仅加载测试需要的数据，请根据需要修改
+    options = {{
+        'stock_list': ['sh000001'],
+        'ktype_list': ['day'],
+        'load_history_finance': False,
+        'load_weight': False,
+        'start_spot': False,
+        'spot_worker_num': 1,
+    }}
+    load_hikyuu(**options)
+    
+    # 请在下方编写测试代码
     ind = part()
     print(ind)
 """
@@ -270,25 +302,9 @@ def part():
     ret = Indicator()
     ret.name = "{name}"
     return ret
-"""
+    
 
-test_template = """
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-
-import os
-import sys
-if sys.platform == 'win32':
-    os.system('chcp 65001')
-
-from hikyuu import *
-try:
-    from .part import *
-except:
-    from part import *
-
-
-if __name__ == "__main__":
+if __name__ == \"__main__\":
     # 执行 testall 命令时，会多传入一个参数，防止测试时间过长
     # 比如如果在测试代码中执行了绘图操作，可以打开下面的注释代码
     # 此时执行 testall 命令时，将直接返回
@@ -297,15 +313,26 @@ if __name__ == "__main__":
         print(ind)
         exit(0)
 
+    import os
+    import sys
+    if sys.platform == 'win32':
+        os.system('chcp 65001')
+
+    from hikyuu import *
+    try:
+        from .part import *
+    except:
+        from part import *
+
     # 仅加载测试需要的数据，请根据需要修改
-    options = {
-        "stock_list": ["sh000001"],
-        "ktype_list": ["day"],
-        "load_history_finance": False,
-        "load_weight": False,
-        "start_spot": False,
-        "spot_worker_num": 1,
-    }
+    options = {{
+        'stock_list': ['sh000001'],
+        'ktype_list': ['day'],
+        'load_history_finance': False,
+        'load_weight': False,
+        'start_spot': False,
+        'spot_worker_num': 1,
+    }}
     load_hikyuu(**options)
     
     # 请在下方编写测试代码
@@ -345,9 +372,6 @@ def create(t, n, cpp):
 
     os.makedirs(part_dir)
 
-    with open(f"{part_dir}/test.py", 'w', encoding='utf=8') as f:
-        f.write(test_template)
-
     if not cpp:
         # 仅创建 Python 版本
         python = only_python_template.format(
@@ -371,7 +395,7 @@ def create(t, n, cpp):
         f.write(cpp)
 
     python = python_part_template.format(
-        today=today.strftime("%Y%m%d"), user=username)
+        today=today.strftime("%Y%m%d"), user=username, name=n)
     with open(f"{part_dir}/part.py", 'w', encoding='utf=8') as f:
         f.write(python)
 
@@ -476,9 +500,9 @@ def buildall(v):
 def test(t, n):
     part_dir = f"{CURRENT_DIR}/{t}/{n}" if t in ("ind",
                                                  "sys", "pf", "other") else f"{CURRENT_DIR}/part/{t}/{n}"
-    if not os.path.exists(f"{part_dir}/test.py"):
+    if not os.path.exists(f"{part_dir}/part.py"):
         print("*****************************************************************")
-        print(f'Failed!!!!!\n"{part_dir}/test.py" is not existed!')
+        print(f'Failed!!!!!\n"{part_dir}/part.py" is not existed!')
         print("*****************************************************************")
         return
 
@@ -487,10 +511,10 @@ def test(t, n):
     print(part_dir)
     if sys.platform == 'win32':
         os.system(
-            f"cd {part_dir} & python test.py")
+            f"cd {part_dir} & python part.py")
     else:
         os.system(
-            f"cd {part_dir} ; python test.py")
+            f"cd {part_dir} ; python part.py")
 
 
 @click.command()
@@ -507,19 +531,19 @@ def testall():
                     part_name = f"{part_dir}/{entry.name}"
                     print(
                         f"========================\ntesting {part_name} ...\n========================")
-                    if not os.path.exists(f"{part_name}/test.py"):
+                    if not os.path.exists(f"{part_name}/part.py"):
                         print(
                             "*****************************************************************")
                         print(
-                            f'Failed!!!!\n"{part_dir}/test.py" is not existed!')
+                            f'Failed!!!!\n"{part_dir}/part.py" is not existed!')
                         print(
                             "*****************************************************************")
                     if sys.platform == 'win32':
                         os.system(
-                            f"cd {part_name}  & python test.py 1")
+                            f"cd {part_name}  & python part.py 1")
                     else:
                         os.system(
-                            f"cd {part_name} ; python test.py 1")
+                            f"cd {part_name} ; python part.py 1")
 
 
 @click.command()
