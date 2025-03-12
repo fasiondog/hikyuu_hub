@@ -17,4 +17,6 @@ def part():
         x = ind(k.close)
         x.plot()
     """
-    return ROCR(0)
+    ret = ROCR(0)
+    ret.name = "累积收益率"
+    return ret

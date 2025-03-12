@@ -32,4 +32,36 @@ def part(n: int = 14) -> Indicator:
     MID = (HIGH + LOW) / 2 - REF((HIGH + LOW) / 2, 1)
     BRO = VOL / (HIGH + LOW)
     EM = MID / BRO
-    return MA(EM, n)
+    ret = MA(EM, n)
+    ret.name = "简易波动指数"
+    return ret
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        print("ignore test")
+        exit(0)
+
+    import os
+    import sys
+    if sys.platform == 'win32':
+        os.system('chcp 65001')
+
+    # 仅加载测试需要的数据，请根据需要修改
+    options = {
+        "stock_list": ["sz000001"],
+        "ktype_list": ["day"],
+        "load_history_finance": False,
+        "load_weight": False,
+        "start_spot": False,
+        "spot_worker_num": 1,
+    }
+    load_hikyuu(**options)
+
+    stk = sm[options['stock_list'][0]]
+    k = stk.get_kdata(Query(-300))
+    ind = part()
+    ind(k).plot(label=f"{stk.name}{ind.name}", legend_on=True)
+
+    import matplotlib.pyplot as plt
+    plt.show()

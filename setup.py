@@ -338,6 +338,10 @@ if __name__ == \"__main__\":
     # 请在下方编写测试代码
     ind = part()
     print(ind)
+    
+    # 显示图形
+    import matplotlib.pylab as plt
+    plt.show()    
 """
 
 
