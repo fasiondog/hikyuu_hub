@@ -230,6 +230,8 @@ if __name__ == \"__main__\":
     }}
     load_hikyuu(**options)
     
+    stks = tuple([sm[code] for code in options['stock_list']])
+    
     # 请在下方编写测试代码
     ind = part()
     print(ind)
@@ -325,6 +327,8 @@ if __name__ == \"__main__\":
         'spot_worker_num': 1,
     }}
     load_hikyuu(**options)
+    
+    stks = tuple([sm[code] for code in options['stock_list']])
     
     # 请在下方编写测试代码
     ind = part()
