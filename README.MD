@@ -1,3 +1,7 @@
+
+
+hub 使用与更新请参考帮助文档，更多信息参见：[https://mp.weixin.qq.com/s/4oh9DEEUkv1gk4KoCcGhtQ](https://mp.weixin.qq.com/s/4oh9DEEUkv1gk4KoCcGhtQ)
+
 Hikyuu 策略仓库
 
 + ind 指标部件
