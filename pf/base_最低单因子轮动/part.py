@@ -25,11 +25,10 @@ def part(tm: TradeManager, ind: Indicator, bottomn: int = 2, stks: Sequence = No
     :param str adjust_mode: 调仓方式
     :param bool delay_to_trading_day: 非交易日调仓时是否延迟到交易日
     """
-    local_hub = get_current_hub(__file__)
-    my_se = get_part(f"{local_hub}.se.最低单因子", ind=ind, bottomn=bottomn)
+    my_se = get_part("default.se.最低单因子", ind=ind, bottomn=bottomn)
     if ref_stk is None:
         my_se.set_param("ref_stk", get_stock("sh000300"))
-    my_sys = get_part(f"{local_hub}.sys.调仓日买入")
+    my_sys = get_part("default.sys.调仓日买入")
     my_se.add_stock_list(stks, my_sys)
 
     my_af = AF_EqualWeight()
