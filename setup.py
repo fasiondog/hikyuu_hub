@@ -70,6 +70,11 @@ target("export")
     add_packages("pybind11", "boost", "fmt", "spdlog")
 
     add_defines("SPDLOG_ACTIVE_LEVEL=0")
+    
+    if is_plat("windows") then
+        add_defines("HKU_API=__declspec(dllimport)")
+        add_defines("HKU_UTILS_API=__declspec(dllimport)")
+    end    
 
     add_includedirs("{include_dir}")
     add_linkdirs("{lib_dir}")
