@@ -19,7 +19,7 @@ XG = CROSS(CC, BB) & (CC >= REF(CC, 1)) & (BB <= REF(BB, 3)) & (CC >= 49.5) & (
     MA(CLOSE(), 3) >= REF(MA(CLOSE(), 3), 1)) & (MA(CLOSE(), 7) >= REF(MA(CLOSE(), 7), 1)) & (MA(CLOSE(), 60) > REF(MA(CLOSE(), 60), 3))
 
 
-def part(n=10, fast_n=2, slow_n=30):
+def part():
     """
     通达信百变一阳指选股器
     参考：https://zhuanlan.zhihu.com/p/629837085    
