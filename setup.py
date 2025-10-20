@@ -58,6 +58,7 @@ add_requires("boost", {{
 
 add_requires("spdlog", {{system = false, configs = {{header_only = true, fmt_external = true}}}})
 add_requireconfs("spdlog.fmt", {{override = true, version = fmt_version, configs = {{header_only = true}}}})
+add_requires("nlohmann_json", {{system = false}})
 
 target("export")
     set_kind("shared")
@@ -67,7 +68,7 @@ target("export")
         set_filename("export.so")
     end
 
-    add_packages("pybind11", "boost", "fmt", "spdlog")
+    add_packages("pybind11", "boost", "fmt", "spdlog", "nlohmann_json")
 
     add_defines("SPDLOG_ACTIVE_LEVEL=0")
     
@@ -216,6 +217,9 @@ if __name__ == \"__main__\":
         ind = part()
         print(ind)
         exit(0)
+        
+    local_hub = get_current_hub(__file__)
+    update_hub(local_hub)        
 
     import sys
     if sys.platform == 'win32':
@@ -278,6 +282,11 @@ try:
             from .export313 import *
         except:
             from export313 import *
+    elif sys.version_info[1] == 14:
+        try:
+            from .export314 import *
+        except:
+            from export314 import *
     else:
         try:
             from .export import *
@@ -314,6 +323,9 @@ if __name__ == \"__main__\":
         ind = part()
         print(ind)
         exit(0)
+
+    local_hub = get_current_hub(__file__)
+    update_hub(local_hub)        
 
     import sys
     if sys.platform == 'win32':
