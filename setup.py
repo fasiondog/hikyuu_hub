@@ -41,24 +41,50 @@ end
 add_repositories("hikyuu-repo https://github.com/fasiondog/hikyuu_extern_libs.git")
 
 add_requires("pybind11", {{system = false}})
-add_requires("boost", {{
-  system = false,
-  debug = is_mode("debug"),  
-  configs = {{
-    shared = is_plat("windows"),
-    multi = true,
-    date_time = true,
-    filesystem = false,
-    serialization = true,
-    system = false,
-    python = false,
-    cmake = false,
-  }},
-}})
+
+local boost_config
+if is_plat("windows") then
+    boost_config = {{
+        shared = true,
+        runtimes = get_config("runtimes"),
+        multi = true,
+        date_time = true,
+        filesystem = false,
+        serialization = true,
+        system = true,
+        python = false,
+        cmake = false,
+    }}
+else
+    boost_config = {{
+        shared = true, -- is_plat("windows"),
+        runtimes = get_config("runtimes"),
+        multi = true,
+        date_time = true,
+        filesystem = false,
+        serialization = true, --get_config("serialize"),
+        system = true,
+        python = false,
+        thread = true,   -- parquet need
+        chrono = true,   -- parquet need
+        charconv = true, -- parquet need
+        atomic = true,
+        container = true,
+        math = true,
+        locale = true,
+        icu = true,
+        regex = true,
+        random = true,
+        thread = true,
+        cmake = true,
+    }}
+end
+add_requires("boost", {{debug = is_mode("debug"), configs = boost_config}})
 
 add_requires("spdlog", {{system = false, configs = {{header_only = true, fmt_external = true}}}})
 add_requireconfs("spdlog.fmt", {{override = true, version = fmt_version, configs = {{header_only = true}}}})
 add_requires("nlohmann_json", {{system = false}})
+add_requires("eigen", {{system = false}})
 
 target("export")
     set_kind("shared")
@@ -68,7 +94,7 @@ target("export")
         set_filename("export.so")
     end
 
-    add_packages("pybind11", "boost", "fmt", "spdlog", "nlohmann_json")
+    add_packages("boost", "pybind11", "fmt", "spdlog", "nlohmann_json", "eigen")
 
     add_defines("SPDLOG_ACTIVE_LEVEL=0")
     
