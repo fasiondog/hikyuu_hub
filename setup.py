@@ -114,7 +114,6 @@ target("export")
     end
     
     if is_plat("macosx") then
-        add_links("boost_date_time-mt", "boost_serialization-mt")
         if is_plat("macosx") then
             add_linkdirs("/usr/lib")
             -- macosx 下不能主动链接 python，所以需要使用如下编译选项
