@@ -85,7 +85,9 @@ add_requires("spdlog", {{system = false, configs = {{header_only = true, fmt_ext
 add_requireconfs("spdlog.fmt", {{override = true, version = fmt_version, configs = {{header_only = true}}}})
 add_requires("nlohmann_json", {{system = false}})
 add_requires("eigen", {{system = false}})
-add_requires("mimalloc", {{system = false, configs = {{shared = true}}}})
+if is_plat("windows", "linux", "cross") then
+    add_requires("mimalloc", {{system = false, configs ={{shared = true}}}})
+end
 
 target("export")
     set_kind("shared")
@@ -95,7 +97,11 @@ target("export")
         set_filename("export.so")
     end
 
-    add_packages("boost", "pybind11", "fmt", "spdlog", "nlohmann_json", "eigen", "mimalloc")
+    add_packages("boost", "pybind11", "fmt", "spdlog", "nlohmann_json", "eigen")
+
+    if is_plat("windows", "linux", "cross") then 
+        add_packages("mimalloc")
+    end
 
     add_defines("SPDLOG_ACTIVE_LEVEL=0")
     
