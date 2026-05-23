@@ -28,7 +28,7 @@ username = os.getlogin()
 
 xmake_template = """
 add_rules("mode.debug", "mode.release")
-set_languages("cxx17")
+set_languages("c++20")
 
 if is_plat("windows") then
     if is_mode("release") then
@@ -42,49 +42,43 @@ add_repositories("hikyuu-repo https://github.com/fasiondog/hikyuu_extern_libs.gi
 
 add_requires("pybind11", {{system = false}})
 
-local boost_config
-if is_plat("windows") then
-    boost_config = {{
-        shared = true,
-        runtimes = get_config("runtimes"),
-        multi = true,
-        date_time = true,
-        filesystem = false,
-        serialization = true,
-        system = true,
-        python = false,
-        cmake = false,
+local boost_config = {{
+        system = false,
+        configs = {{    
+            shared = true,
+            runtimes = get_config("runtimes"),
+            multi = true,
+            date_time = true,
+            filesystem = false,
+            serialization = true,
+            system = true,
+            python = false,
+            thread = true,  
+            chrono = true,  
+            charconv = true,
+            atomic = true,
+            container = true,
+            math = true,
+            locale = true,
+            icu = true,
+            regex = true,
+            random = true,
+            thread = true,
+            asio = true,
+            openssl = true,
+            mysql = true,            
+            cmake = false,
     }}
-else
-    boost_config = {{
-        shared = true, -- is_plat("windows"),
-        runtimes = get_config("runtimes"),
-        multi = true,
-        date_time = true,
-        filesystem = false,
-        serialization = true, --get_config("serialize"),
-        system = true,
-        python = false,
-        thread = true,   -- parquet need
-        chrono = true,   -- parquet need
-        charconv = true, -- parquet need
-        atomic = true,
-        container = true,
-        math = true,
-        locale = true,
-        icu = true,
-        regex = true,
-        random = true,
-        thread = true,
-        cmake = true,
-    }}
-end
-add_requires("boost", {{debug = is_mode("debug"), configs = boost_config}})
+}}
+add_requires("boost", boost_config)
 
+add_requires("tl_expected", {{system = false}})
 add_requires("spdlog", {{system = false, configs = {{header_only = true, fmt_external = true}}}})
 add_requireconfs("spdlog.fmt", {{override = true, version = fmt_version, configs = {{header_only = true}}}})
 add_requires("nlohmann_json", {{system = false}})
 add_requires("eigen", {{system = false}})
+add_requires("openssl3", {{system = is_plat("linux"), configs = {{shared = true}}}})
+
 if is_plat("windows", "linux", "cross") then
     add_requires("mimalloc", {{system = false, configs ={{shared = true}}}})
 end
@@ -97,7 +91,7 @@ target("export")
         set_filename("export.so")
     end
 
-    add_packages("boost", "pybind11", "fmt", "spdlog", "nlohmann_json", "eigen")
+    add_packages("openssl3", "boost", "pybind11", "fmt", "spdlog", "nlohmann_json", "eigen", "tl_expected")
 
     if is_plat("windows", "linux", "cross") then 
         add_packages("mimalloc")
