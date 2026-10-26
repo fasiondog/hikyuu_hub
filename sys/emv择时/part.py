@@ -18,7 +18,7 @@ def part(n: int = 14, tm: TradeManager = None) -> System:
     my_sg = SG_Bool(emv > 0, emv <= 0)
     my_tm = crtTM() if tm is None else tm
     my_mm = MM_Nothing()
-    my_mm.set_param("auto-checkin", False)
+    my_mm.set_param("auto_checkin", False)
     my_sys = SYS_Simple(tm=my_tm, sg=my_sg, mm=my_mm)
     return my_sys
 

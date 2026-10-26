@@ -66,5 +66,6 @@ if __name__ == "__main__":
         pf.tm.tocsv(".")
 
         pf.performance()
+        # print(pf.get_adjust_turnover())
         import matplotlib.pylab as plt
         plt.show()

@@ -66,7 +66,7 @@ if __name__ == "__main__":
                   cost_func=TC_FixedA2017())
     my_sys.tm = my_tm
     my_sys.mm = MM_FixedCount(100)
-    my_sys.mm.set_param("auto-checkin", True)
+    my_sys.mm.set_param("auto_checkin", True)
     my_sys.run(stk, Query(Datetime(20150101)))
 
     import matplotlib.pyplot as plt
