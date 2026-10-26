@@ -43,6 +43,7 @@ add_repositories("hikyuu-repo https://github.com/fasiondog/hikyuu_extern_libs.gi
 add_requires("pybind11", {{system = false}})
 
 local boost_config = {{
+        version = ">=1.92.0",
         system = false,
         configs = {{    
             shared = true,
@@ -64,7 +65,7 @@ local boost_config = {{
             regex = true,
             random = true,
             thread = true,
-            asio = true,
+            -- asio = true,
             openssl = true,
             mysql = true,            
             cmake = false,
@@ -191,6 +192,8 @@ PYBIND11_MODULE(export311, m) {
 PYBIND11_MODULE(export312, m) {
 #elif PY_MINOR_VERSION == 13
 PYBIND11_MODULE(export313, m) {
+#elif PY_MINOR_VERSION == 14
+PYBIND11_MODULE(export314, m) {
 #else
 PYBIND11_MODULE(export, m) {
 #endif
@@ -463,6 +466,10 @@ def update():
                             include_dir=include_dir, lib_dir=lib_dir)
                         with open(f"{part_dir}/{entry.name}/xmake.lua", 'w', encoding='utf=8') as f:
                             f.write(xmake_lua)
+                        mypart_py = python_mypart_template.format(
+                            include_dir=include_dir, lib_dir=lib_dir)
+                        with open(f"{part_dir}/{entry.name}/mypart.py", 'w', encoding='utf=8') as f:
+                            f.write(mypart_py)
 
 
 @click.command()
