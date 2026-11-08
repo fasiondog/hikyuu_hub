@@ -62,9 +62,6 @@ if __name__ == "__main__":
     k = stk.get_kdata(Query(-500))
     sg.to = k
 
-    local_hub = get_current_hub(__file__)
-    update_hub(local_hub)
-
     import matplotlib.pyplot as plt
     ax1, ax2 = create_figure(2)
     k.plot(axes=ax1)

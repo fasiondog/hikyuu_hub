@@ -66,8 +66,6 @@ if __name__ == "__main__":
 
     # 请在下方编写测试代码
     local_hub = get_current_hub(__file__)
-    update_hub(local_hub)
-
     my_sys = get_part(f"{local_hub}.sys.ZScore均值回归")
     print(my_sys)
 
