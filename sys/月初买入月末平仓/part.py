@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+from hikyuu import *
+
+author = "fasiondog"
+version = "20261108"
+
+_default_mm = MM_Nothing()
+_default_tm = crtTM()
+
+
+def part(st_p: float = None,
+         tm: TradeManager = _default_tm, mm: MoneyManagerBase = _default_mm, sp: SlippageBase = None):
+    """
+    Month-start buy / month-end sell calendar system (long-only A-share mapping).
+
+    Buys on the first trading day of each month and sells on the last trading day
+    of each month. An optional fixed-percent stop-loss can be enabled.
+
+    :param st_p: fixed-percent stop-loss; None/omitted disables it (original default)
+    :param tm: trade manager
+    :param mm: money manager (default equal-weight)
+    :param sp: slippage
+    :return: SYS instance
+    """
+    local_hub = get_current_hub(__file__)
+    sg1 = get_part(f"{local_hub}.sg.买入月初首日")
+    sg2 = get_part(f"{local_hub}.sg.卖出月末末日")
+    sg = sg1 + sg2
+    sg.set_param("alternate", True)
+
+    st = ST_FixedPercent(st_p) if st_p is not None else None
+    ret = SYS_Simple(tm=tm, sg=sg, mm=mm, sp=sp, st=st)
+    ret.name = "月初买入月末平仓系统"
+    return ret
+
+
+if __name__ == "__main__":
+    # 执行 testall 命令时，会多传入一个参数，防止测试时间过长
+    if len(sys.argv) > 1:
+        print("ignore test")
+        exit(0)
+
+    import os
+    import sys
+    if sys.platform == 'win32':
+        os.system('chcp 65001')
+
+    # 仅加载测试需要的数据，请根据需要修改
+    options = {
+        "stock_list": ["sz000001"],
+        "ktype_list": ["day"],
+        "load_history_finance": False,
+        "load_weight": False,
+        "start_spot": False,
+        "spot_worker_num": 1,
+    }
+    load_hikyuu(**options)
+
+    # 请在下方编写测试代码
+    local_hub = get_current_hub(__file__)
+    update_hub(local_hub)
+
+    my_sys = get_part(f"{local_hub}.sys.月初买入月末平仓")
+    print(my_sys)
+
+    my_tm = crtTM(Datetime(20180101), init_cash=100000, cost_func=TC_FixedA2017())
+    my_sys.tm = my_tm
+    my_sys.run(sm['sz000001'], Query(Datetime(20180101)))
+    print(my_sys.tm)
+    my_sys.tm.tocsv(os.path.dirname(os.path.abspath(__file__)))
+    my_sys.performance()
+    import matplotlib.pylab as plt
+    plt.show()
